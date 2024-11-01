@@ -11,8 +11,9 @@
       background: radial-gradient(circle, #000 0%, #333 100%);
       color: #e0e0e0;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       margin: 0;
       overflow: hidden;
@@ -42,6 +43,7 @@
       transition: transform 0.5s ease, box-shadow 0.5s ease;
       animation: cardLoad 0.8s ease forwards;
     }
+    
     /* Initial Card Load Animation */
     @keyframes cardLoad {
       0% { opacity: 0; transform: translateY(50px) scale(0.9); }
@@ -119,6 +121,31 @@
     .button-save:hover {
       animation: glow 1s infinite alternate;
     }
+
+    /* Instagram Gallery Styles */
+    .gallery {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .gallery-item {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    .gallery-item:hover {
+      transform: scale(1.1);
+    }
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
@@ -141,7 +168,7 @@
     <a href="https://facebook.com/yourprofile" target="_blank" title="Facebook">
       <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" style="width: 100%; height: 100%;">
     </a>
-    <a href="https://instagram.com/yourprofile" target="_blank" title="Instagram">
+    <a href="https://instagram.com/dilakshana_graphic" target="_blank" title="Instagram">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 100%; height: 100%;">
     </a>
   </div>
@@ -152,46 +179,37 @@
   </button>
 </div>
 
+<!-- Instagram Gallery -->
+<div class="gallery">
+  <div class="gallery-item">
+    <a href="https://www.instagram.com/p/1" target="_blank">
+      <img src="https://via.placeholder.com/60" alt="Instagram Photo 1">
+    </a>
+  </div>
+  <div class="gallery-item">
+    <a href="https://www.instagram.com/p/2" target="_blank">
+      <img src="https://via.placeholder.com/60" alt="Instagram Photo 2">
+    </a>
+  </div>
+  <div class="gallery-item">
+    <a href="https://www.instagram.com/p/3" target="_blank">
+      <img src="https://via.placeholder.com/60" alt="Instagram Photo 3">
+    </a>
+  </div>
+  <div class="gallery-item">
+    <a href="https://www.instagram.com/p/4" target="_blank">
+      <img src="https://via.placeholder.com/60" alt="Instagram Photo 4">
+    </a>
+  </div>
+  <div class="gallery-item">
+    <a href="https://www.instagram.com/p/5" target="_blank">
+      <img src="https://via.placeholder.com/60" alt="Instagram Photo 5">
+    </a>
+  </div>
+</div>
+
 <script>
   function saveContact() {
     // Static contact details
     const firstName = "John";
-    const lastName = "Doe";
-    const jobPosition = "Software Engineer";
-    const birthday = "1990-01-01";
-    const mobile = "+123456789";
-    const whatsapp = "+123456789";
-    const email = "johndoe@example.com";
-    const website = "https://example.com";
-
-    // vCard format
-    const vCardData = `
-BEGIN:VCARD
-VERSION:3.0
-N:${lastName};${firstName};;;
-FN:${firstName} ${lastName}
-TITLE:${jobPosition}
-BDAY:${birthday}
-TEL;TYPE=CELL:${mobile}
-TEL;TYPE=WHATSAPP:${whatsapp}
-EMAIL:${email}
-URL:${website}
-END:VCARD
-    `.trim();
-
-    // Create a blob from the vCard data
-    const blob = new Blob([vCardData], { type: "text/vcard" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${firstName}_${lastName}_contact.vcf`;
-
-    // Auto-click the download link
-    link.click();
-
-    // Confirm save with an alert
-    alert("Click 'Open in Contacts' to save contact on Android/iPhone!");
-  }
-</script>
-
-</body>
-</html>
+    const last
