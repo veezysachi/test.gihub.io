@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Contact Save Page</title>
+  <title>Contact Page</title>
   <style>
     /* Dark Theme and Modern Styling */
     body {
@@ -15,50 +15,65 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
+      perspective: 1000px;
     }
+
+    /* Contact Card Styling with 3D Pop and Transition */
     .card {
       background-color: #1e1e1e;
-      border-radius: 12px;
-      width: 320px;
+      border-radius: 15px;
+      width: 340px;
       padding: 25px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
       text-align: center;
+      transform: rotateY(0);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
+    .card:hover {
+      transform: rotateY(10deg);
+      box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Profile Image Styling */
     .profile-img {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       margin-bottom: 15px;
       border: 2px solid #4CAF50;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
       display: block;
       margin-left: auto;
       margin-right: auto;
     }
-    input[type="text"], input[type="tel"], input[type="email"], input[type="url"] {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      background-color: #333;
-      color: #e0e0e0;
-      border: none;
-      border-radius: 5px;
-      font-size: 0.95em;
+
+    /* Contact Information Styling */
+    .contact-info {
+      margin: 12px 0;
+      font-size: 1em;
+      color: #ccc;
+      transition: color 0.3s;
     }
+
+    /* Save Button Styling with Hover Effects */
     .button-save {
       width: 100%;
       padding: 12px;
       background-color: #4CAF50;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-weight: bold;
       font-size: 1em;
       cursor: pointer;
       margin-top: 15px;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
     .button-save:hover {
       background-color: #45a049;
+      transform: translateY(-3px);
+      box-shadow: 0px 8px 20px rgba(0, 255, 100, 0.6);
     }
     .icon-save {
       margin-right: 8px;
@@ -71,15 +86,14 @@
   <!-- Profile Image -->
   <img src="profile.jpg" alt="Profile Image" class="profile-img">
 
-  <!-- Contact Form Fields -->
-  <input type="text" id="firstName" placeholder="First Name" value="John">
-  <input type="text" id="lastName" placeholder="Last Name" value="Doe">
-  <input type="tel" id="mobile" placeholder="Mobile Number" value="+123456789">
-  <input type="tel" id="whatsapp" placeholder="WhatsApp Number" value="+123456789">
-  <input type="email" id="email" placeholder="Email Address" value="johndoe@example.com">
-  <input type="url" id="website" placeholder="Website URL" value="https://example.com">
+  <!-- Static Contact Info -->
+  <div class="contact-info"><strong>Name:</strong> John Doe</div>
+  <div class="contact-info"><strong>Mobile:</strong> +123456789</div>
+  <div class="contact-info"><strong>WhatsApp:</strong> +123456789</div>
+  <div class="contact-info"><strong>Email:</strong> johndoe@example.com</div>
+  <div class="contact-info"><strong>Website:</strong> <a href="https://example.com" target="_blank" style="color:#4CAF50; text-decoration:none;">example.com</a></div>
 
-  <!-- Save Button -->
+  <!-- Save Contact Button -->
   <button class="button-save" onclick="saveContact()">
     <span class="icon-save">💾</span> Save Contact
   </button>
@@ -87,13 +101,13 @@
 
 <script>
   function saveContact() {
-    // Collect input values
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const mobile = document.getElementById("mobile").value;
-    const whatsapp = document.getElementById("whatsapp").value;
-    const email = document.getElementById("email").value;
-    const website = document.getElementById("website").value;
+    // Static contact details
+    const firstName = "John";
+    const lastName = "Doe";
+    const mobile = "+123456789";
+    const whatsapp = "+123456789";
+    const email = "johndoe@example.com";
+    const website = "https://example.com";
 
     // vCard format
     const vCardData = `
@@ -113,10 +127,12 @@ END:VCARD
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = `${firstName}_${lastName}_contact.vcf`;
+
+    // Auto-click the download link
     link.click();
 
     // Confirm save with an alert
-    alert("Contact saved to your downloads as a .vcf file!");
+    alert("Click 'Open in Contacts' to save contact on Android/iPhone!");
   }
 </script>
 
