@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Contact Card</title>
+  <title>Contact Page</title>
   <style>
-    /* Dark Mode Styling */
+    /* Dark Theme and Modern Styling */
     body {
       font-family: Arial, sans-serif;
       background-color: #121212;
@@ -15,62 +15,68 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden;
+      perspective: 1000px;
     }
+
+    /* Contact Card Styling with 3D Pop and Transition */
     .card {
       background-color: #1e1e1e;
-      border-radius: 10px;
-      width: 300px;
-      padding: 20px;
-      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      width: 340px;
+      padding: 25px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
       text-align: center;
+      transform: rotateY(0);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
+    .card:hover {
+      transform: rotateY(10deg);
+      box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Profile Image Styling */
     .profile-img {
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      margin: 10px auto;
-      display: block;
+      margin-bottom: 15px;
       border: 2px solid #4CAF50;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .name {
-      font-size: 1.5em;
-      font-weight: bold;
-      margin: 10px 0;
-    }
+
+    /* Contact Information Styling */
     .contact-info {
-      margin: 20px 0;
+      margin: 12px 0;
       font-size: 1em;
+      color: #ccc;
+      transition: color 0.3s;
     }
-    .contact-info p {
-      margin: 5px 0;
-    }
-    .social-links {
-      display: flex;
-      justify-content: center;
-      margin: 15px 0;
-    }
-    .social-links a {
-      margin: 0 10px;
-      color: #e0e0e0;
-      text-decoration: none;
-      font-size: 1.2em;
-    }
-    .social-links a:hover {
-      color: #4CAF50;
-    }
-    .save-button {
-      display: inline-block;
-      padding: 10px 20px;
+
+    /* Save Button Styling with Hover Effects */
+    .button-save {
+      width: 100%;
+      padding: 12px;
       background-color: #4CAF50;
       color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
+      border: none;
+      border-radius: 8px;
       font-weight: bold;
-      margin-top: 20px;
-      transition: background-color 0.3s ease;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .save-button:hover {
+    .button-save:hover {
       background-color: #45a049;
+      transform: translateY(-3px);
+      box-shadow: 0px 8px 20px rgba(0, 255, 100, 0.6);
+    }
+    .icon-save {
+      margin-right: 8px;
     }
   </style>
 </head>
@@ -80,26 +86,55 @@
   <!-- Profile Image -->
   <img src="profile.jpg" alt="Profile Image" class="profile-img">
 
-  <!-- Name -->
-  <div class="name">John Doe</div>
-
-  <!-- Contact Details -->
-  <div class="contact-info">
-    <p>📱 Mobile: +123456789</p>
-    <p>📞 WhatsApp: +123456789</p>
-    <p>📧 Email: johndoe@example.com</p>
-    <p>🌐 Website: <a href="https://www.example.com" target="_blank" style="color: #4CAF50;">example.com</a></p>
-  </div>
-
-  <!-- Social Media Links -->
-  <div class="social-links">
-    <a href="https://www.facebook.com/YourPage" target="_blank">Facebook</a>
-    <a href="https://www.instagram.com/YourPage" target="_blank">Instagram</a>
-  </div>
+  <!-- Static Contact Info -->
+  <div class="contact-info"><strong>Name:</strong> John Doe</div>
+  <div class="contact-info"><strong>Mobile:</strong> +123456789</div>
+  <div class="contact-info"><strong>WhatsApp:</strong> +123456789</div>
+  <div class="contact-info"><strong>Email:</strong> johndoe@example.com</div>
+  <div class="contact-info"><strong>Website:</strong> <a href="https://example.com" target="_blank" style="color:#4CAF50; text-decoration:none;">example.com</a></div>
 
   <!-- Save Contact Button -->
-  <a href="contact.vcf" download="contact.vcf" class="save-button">Save Contact</a>
+  <button class="button-save" onclick="saveContact()">
+    <span class="icon-save">💾</span> Save Contact
+  </button>
 </div>
+
+<script>
+  function saveContact() {
+    // Static contact details
+    const firstName = "John";
+    const lastName = "Doe";
+    const mobile = "+123456789";
+    const whatsapp = "+123456789";
+    const email = "johndoe@example.com";
+    const website = "https://example.com";
+
+    // vCard format
+    const vCardData = `
+BEGIN:VCARD
+VERSION:3.0
+N:${lastName};${firstName};;;
+FN:${firstName} ${lastName}
+TEL;TYPE=CELL:${mobile}
+TEL;TYPE=WHATSAPP:${whatsapp}
+EMAIL:${email}
+URL:${website}
+END:VCARD
+    `.trim();
+
+    // Create a blob from the vCard data
+    const blob = new Blob([vCardData], { type: "text/vcard" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${firstName}_${lastName}_contact.vcf`;
+
+    // Auto-click the download link
+    link.click();
+
+    // Confirm save with an alert
+    alert("Click 'Open in Contacts' to save contact on Android/iPhone!");
+  }
+</script>
 
 </body>
 </html>
