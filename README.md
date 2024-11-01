@@ -3,55 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Save Page</title>
+  <title>Contact Save Page with 3D Background</title>
   <style>
-    /* Body Styles */
+    /* Body and Background Styles */
     body {
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle, #000 0%, #333 100%);
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #1e1e1e, #343434);
       color: #e0e0e0;
+      margin: 0;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
-      overflow: hidden;
       perspective: 1000px;
-      animation: bodyFade 1s ease-in-out;
     }
 
     /* 3D Background Animation */
-    @keyframes backgroundAnimation {
-      0% { background-color: rgba(0, 0, 0, 0.8); }
-      50% { background-color: rgba(51, 51, 51, 0.8); }
-      100% { background-color: rgba(0, 0, 0, 0.8); }
+    .background-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(58, 58, 58, 0.8), rgba(18, 18, 18, 0.9) 60%);
+      animation: animateBg 10s infinite linear;
+      z-index: -1;
+      filter: blur(15px);
+      opacity: 0.8;
+      pointer-events: none;
     }
-    body {
-      animation: backgroundAnimation 10s infinite alternate;
+    @keyframes animateBg {
+      0% { transform: translateX(-5%) translateY(-5%) scale(1.1); }
+      50% { transform: translateX(5%) translateY(5%) scale(1.05); }
+      100% { transform: translateX(-5%) translateY(-5%) scale(1.1); }
+    }
+
+    /* Veezy Logo Styling */
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
+      transition: transform 0.3s;
+    }
+    .logo:hover {
+      transform: scale(1.1);
     }
 
     /* Contact Card Styling */
     .card {
-      background-color: rgba(30, 30, 30, 0.9);
+      background-color: rgba(30, 30, 30, 0.95);
       border-radius: 15px;
       width: 340px;
       padding: 25px;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7);
+      box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.7);
       text-align: center;
       transform: rotateY(0);
       transition: transform 0.5s ease, box-shadow 0.5s ease;
       animation: cardLoad 0.8s ease forwards;
     }
-    
+
     /* Initial Card Load Animation */
     @keyframes cardLoad {
       0% { opacity: 0; transform: translateY(50px) scale(0.9); }
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     .card:hover {
-      transform: rotateY(8deg) scale(1.03);
-      box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.8);
+      transform: scale(1.05) rotateY(3deg);
+      box-shadow: 0px 20px 50px rgba(0, 255, 100, 0.3);
     }
 
     /* Profile Image Styling */
@@ -60,11 +79,12 @@
       height: 100px;
       border-radius: 50%;
       margin-bottom: 15px;
-      border: 2px solid #4CAF50;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      border: 3px solid #4CAF50;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s;
+    }
+    .profile-img:hover {
+      transform: scale(1.05);
     }
 
     /* Contact Information Styling */
@@ -84,8 +104,8 @@
     }
     .social-links a {
       display: inline-block;
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       transition: transform 0.3s ease;
     }
     .social-links a:hover {
@@ -105,50 +125,22 @@
       cursor: pointer;
       margin-top: 15px;
       transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     }
     .button-save:hover {
       background-color: #45a049;
       transform: translateY(-3px);
       box-shadow: 0px 8px 20px rgba(0, 255, 100, 0.6);
     }
-
-    /* Glowing Effect on Save Button */
-    @keyframes glow {
-      0% { box-shadow: 0 0 5px #4CAF50, 0 0 15px #4CAF50; }
-      50% { box-shadow: 0 0 15px #45a049, 0 0 20px #45a049; }
-      100% { box-shadow: 0 0 5px #4CAF50, 0 0 15px #4CAF50; }
-    }
-    .button-save:hover {
-      animation: glow 1s infinite alternate;
-    }
-
-    /* Instagram Gallery Styles */
-    .gallery {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .gallery-item {
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    }
-    .gallery-item:hover {
-      transform: scale(1.1);
-    }
-    .gallery img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   </style>
 </head>
 <body>
+
+<!-- 3D Background Animation Layer -->
+<div class="background-animation"></div>
+
+<!-- Veezy Logo -->
+<img src="your-logo-url.png" alt="Veezy Logo" class="logo">
 
 <div class="card">
   <!-- Profile Image -->
@@ -166,58 +158,29 @@
   <!-- Social Media Links with Icons -->
   <div class="social-links">
     <a href="https://facebook.com/yourprofile" target="_blank" title="Facebook">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo" style="width: 100%; height: 100%;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
     </a>
     <a href="https://instagram.com/dilakshana_graphic" target="_blank" title="Instagram">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" style="width: 100%; height: 100%;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
     </a>
   </div>
 
   <!-- Save Contact Button -->
   <button class="button-save" onclick="saveContact()">
-    <span class="icon-save">💾</span> Save Contact
+    Save Contact
   </button>
 </div>
 
-<!-- Instagram Gallery -->
-<div class="gallery">
-  <div class="gallery-item">
-    <a href="https://www.instagram.com/p/1" target="_blank">
-      <img src="https://via.placeholder.com/60" alt="Instagram Photo 1">
-    </a>
-  </div>
-  <div class="gallery-item">
-    <a href="https://www.instagram.com/p/2" target="_blank">
-      <img src="https://via.placeholder.com/60" alt="Instagram Photo 2">
-    </a>
-  </div>
-  <div class="gallery-item">
-    <a href="https://www.instagram.com/p/3" target="_blank">
-      <img src="https://via.placeholder.com/60" alt="Instagram Photo 3">
-    </a>
-  </div>
-  <div class="gallery-item">
-    <a href="https://www.instagram.com/p/4" target="_blank">
-      <img src="https://via.placeholder.com/60" alt="Instagram Photo 4">
-    </a>
-  </div>
-  <div class="gallery-item">
-    <a href="https://www.instagram.com/p/5" target="_blank">
-      <img src="https://via.placeholder.com/60" alt="Instagram Photo 5">
-    </a>
-  </div>
-</div>
-
+<!-- JavaScript for saving contact -->
 <script>
   function saveContact() {
-    // Static contact details
     const firstName = "John";
     const lastName = "Doe";
     const phoneNumber = "+123456789";
     const email = "johndoe@example.com";
-    const birthday = "January 1, 1990";
+    const birthday = "1990-01-01"; // Use YYYY-MM-DD format
 
-    // Construct the vCard data
+    // Create the vCard data
     const vCardData = `BEGIN:VCARD
 VERSION:3.0
 FN:${firstName} ${lastName}
