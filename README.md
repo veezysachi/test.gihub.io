@@ -212,4 +212,36 @@
   function saveContact() {
     // Static contact details
     const firstName = "John";
-    const last
+    const lastName = "Doe";
+    const phoneNumber = "+123456789";
+    const email = "johndoe@example.com";
+    const birthday = "January 1, 1990";
+
+    // Construct the vCard data
+    const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:${firstName} ${lastName}
+TEL:${phoneNumber}
+EMAIL:${email}
+BDAY:${birthday}
+END:VCARD`;
+
+    // Create a Blob from the vCard data
+    const blob = new Blob([vCardData], { type: "text/vcard" });
+    const url = URL.createObjectURL(blob);
+
+    // Create a temporary anchor element for downloading
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "contact.vcf"; // File name
+    document.body.appendChild(a);
+    a.click();
+
+    // Clean up
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+</script>
+
+</body>
+</html>
